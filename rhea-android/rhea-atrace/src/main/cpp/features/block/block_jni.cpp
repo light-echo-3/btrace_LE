@@ -118,6 +118,7 @@ Java_com_bytedance_rheatrace_atrace_BlockTrace_nativeInit(JNIEnv *env, jclass cl
     Object_identityHashCodeNative = (jint (*)(JNIEnv *, jclass, jobject)) identityHashCodeNativeArtMethod[jniEntranceIndex_];
     using namespace Wait;
     using namespace Park;
+    ALOGE("---HookJNI---begin");
     HookJNI(env, wait, (void *) Object_waitJI, (void **) &Origin_waitJI);
     HookJNI(env, notify, (void *) Object_notify, (void **) &Origin_notify);
     HookJNI(env, notify_all, (void *) Object_notifyAll, (void **) &Origin_notifyAll);

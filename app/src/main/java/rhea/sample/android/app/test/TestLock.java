@@ -11,4 +11,21 @@ public class TestLock {
             e.printStackTrace();
         }
     }
+
+    public static void testWait2() {
+        new Thread("hdq---test"){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    synchronized (lock){
+                        lock.wait(501);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
 }

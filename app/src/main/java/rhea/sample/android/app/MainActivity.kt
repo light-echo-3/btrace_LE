@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
         TestLock.testWait()
+        TestLock.testWait2()
         Log.d("TAG", "onCreate: end")
     }
 

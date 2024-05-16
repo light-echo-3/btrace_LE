@@ -1,4 +1,4 @@
-package rhea.sample.android.app;
+package rhea.sample.android.app.test;
 
 import android.util.Log;
 

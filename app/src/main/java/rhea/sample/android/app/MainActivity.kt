@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import rhea.sample.android.R
+import rhea.sample.android.app.test.TestException
 
 class MainActivity : AppCompatActivity() {
 

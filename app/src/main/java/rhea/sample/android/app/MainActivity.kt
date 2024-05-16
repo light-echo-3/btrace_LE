@@ -16,6 +16,7 @@
 package rhea.sample.android.app
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import rhea.sample.android.R
 import rhea.sample.android.app.test.TestException
+import rhea.sample.android.app.test.TestLock
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,6 +39,8 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+        TestLock.testWait()
+        Log.d("TAG", "onCreate: end")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

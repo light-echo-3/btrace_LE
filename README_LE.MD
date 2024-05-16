@@ -45,9 +45,46 @@ rhea.sample.android.app.test.TestLock.testWait
 
 ### jni hook
 [原理](https://blog.csdn.net/c6E5UlI1N/article/details/132419157)  
+
+
+block_jni.cpp
+
+```C++
+//获取ArtMethod指针
+static void **GetArtMethod(JNIEnv *env, jobject foo) {
+    void **fooArtMethod;
+    if (android_get_device_api_level() >= 30) {
+        jclass Executable = env->FindClass("java/lang/reflect/Executable");
+        jfieldID artMethodField = env->GetFieldID(Executable, "artMethod", "J");
+        fooArtMethod = (void **) env->GetLongField(foo, artMethodField);
+    } else {
+        fooArtMethod = (void **) env->FromReflectedMethod(foo);
+    }
+    return fooArtMethod;
+}
+```
+```C++
+//确定jni函数地址在ArtMethod中的偏移
+static void InitJNIHook(JNIEnv *env, jobject foo, void *fooJNI) {
+    void **fooArtMethod = GetArtMethod(env, foo);
+    for (int i = 0; i < 50; ++i) {
+        if (fooArtMethod[i] == fooJNI) {//这里每次+8字节查找，能ok吗？
+            jniEntranceIndex_ = i;
+            break;
+        }
+    }
+}
+
+```
+
+- art::ArtMethod定义
+  /Volumes/light/aosp/aosp_20240506/art/runtime/art_method.h
+
+
+### debug
 HookJNI
 ```shell
-#debug
+#debug btrace需要执行如下脚本
 # 修改btrace标记，启动时开启btrace
 adb shell setprop debug.rhea.startWhenAppLaunch 1
 # wait debugger attach
